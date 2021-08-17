@@ -1,5 +1,6 @@
 var express = require("express");
 var cors = require("cors");
+const path = require("path");
 const { exec } = require("child_process");
 
 var app = express();
@@ -12,15 +13,18 @@ var corsOptions = {
 };
 
 app.get("/", cors(corsOptions), function (req, res) {
-  const ls = exec("python --version", function (error, stdout, stderr) {
-    if (error) {
-      console.log(error.stack);
-      console.log("Error code: " + error.code);
-      console.log("Signal received: " + error.signal);
+  const ls = exec(
+    path.join(process.cwd(), "knock-0.1.0-alpha-x86_64-linux"),
+    function (error, stdout, stderr) {
+      if (error) {
+        console.log(error.stack);
+        console.log("Error code: " + error.code);
+        console.log("Signal received: " + error.signal);
+      }
+      console.log("Child Process STDOUT: " + stdout);
+      console.log("Child Process STDERR: " + stderr);
     }
-    console.log("Child Process STDOUT: " + stdout);
-    console.log("Child Process STDERR: " + stderr);
-  });
+  );
 
   ls.on("exit", function (code) {
     console.log("Child process exited with exit code " + code);
