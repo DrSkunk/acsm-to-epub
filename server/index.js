@@ -2,7 +2,7 @@ var express = require("express");
 var cors = require("cors");
 const path = require("path");
 const { exec } = require("child_process");
-const http = require("http"); // or 'https' for https:// URLs\
+const { https } = require("follow-redirects");
 const fs = require("fs");
 
 var app = express();
@@ -19,31 +19,42 @@ const version = "0.1.0-alpha";
 const filename = "knock-0.1.0-alpha-x86_64-linux";
 
 const destination = path.join(process.cwd(), filename);
+(async () => {
+  try {
+    await fs.promises.stat(destination);
+  } catch (error) {
+    console.log("knock is not downloaded yet.");
+    await download();
+  }
+  app.listen(port, function () {
+    console.log(`CORS-enabled web server listening on ${port}`);
+  });
+})();
 
-fs.promises.stat(destination).catch(() => {
-  console.log("knock is not downloaded yet.");
-  download();
-});
-
-function download(cb) {
+function download() {
   const url = `https://github.com/BentonEdmondson/knock/releases/download/${version}/${filename}`;
   console.log("Downloading Knock version", version);
   console.log("Downloading from", url);
   var file = fs.createWriteStream(destination);
-  http
-    .get(url, function (response) {
-      response.pipe(file);
-      file.on("finish", function () {
-        console.log("knock is downloaded.");
-        file.close(cb); // close() is async, call cb after close completes.
+  return new Promise((resolve, reject) => {
+    https
+      .get(url, function (response) {
+        response.pipe(file);
+        file.on("finish", function () {
+          console.log("knock is downloaded.");
+          fs.promises
+            .chmod(destination, "755")
+            .then(file.close(resolve)) // close() is async, call cb after close completes.
+            .catch(reject);
+        });
+      })
+      .on("error", function (err) {
+        console.error(`problem downloading: ${err.message}`);
+        // Handle errors
+        fs.unlink(destination); // Delete the file async. (But we don't check the result)
+        reject(err);
       });
-    })
-    .on("error", function (err) {
-      console.error(`problem downloading: ${err.message}`);
-      // Handle errors
-      fs.unlink(destination); // Delete the file async. (But we don't check the result)
-      if (cb) cb(err.message);
-    });
+  });
 }
 
 app.get("/", cors(corsOptions), function (req, res) {
@@ -69,8 +80,4 @@ app.get("/", cors(corsOptions), function (req, res) {
 
 app.get("/products/:id", cors(corsOptions), function (req, res, next) {
   res.json({ msg: "This is CORS-enabled for only example.com." });
-});
-
-app.listen(port, function () {
-  console.log(`CORS-enabled web server listening on ${port}`);
 });
