@@ -26,6 +26,7 @@ app.get("/", cors(corsOptions), function (req, res) {
     console.log("Child process exited with exit code " + code);
     res.sendStatus(200);
   });
+  console.log(process.cwd());
 });
 
 app.get("/products/:id", cors(corsOptions), function (req, res, next) {
