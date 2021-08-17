@@ -1,5 +1,7 @@
 var express = require("express");
 var cors = require("cors");
+const { exec } = require("child_process");
+
 var app = express();
 
 const port = process.env.PORT || 3945;
@@ -10,7 +12,20 @@ var corsOptions = {
 };
 
 app.get("/", cors(corsOptions), function (req, res) {
-  res.sendStatus(200);
+  const ls = exec("ls -l", function (error, stdout, stderr) {
+    if (error) {
+      console.log(error.stack);
+      console.log("Error code: " + error.code);
+      console.log("Signal received: " + error.signal);
+    }
+    console.log("Child Process STDOUT: " + stdout);
+    console.log("Child Process STDERR: " + stderr);
+  });
+
+  ls.on("exit", function (code) {
+    console.log("Child process exited with exit code " + code);
+    res.sendStatus(200);
+  });
 });
 
 app.get("/products/:id", cors(corsOptions), function (req, res, next) {
