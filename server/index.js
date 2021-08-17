@@ -18,5 +18,3 @@ app.get("/products/:id", cors(corsOptions), function (req, res, next) {
 app.listen(3945, function () {
   console.log("CORS-enabled web server listening");
 });
-
-fetch("https://drskunk.duckdns.org:3945").then(console.log);
