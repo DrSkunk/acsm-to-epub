@@ -12,7 +12,7 @@ var corsOptions = {
 };
 
 app.get("/", cors(corsOptions), function (req, res) {
-  const ls = exec("ls -l", function (error, stdout, stderr) {
+  const ls = exec("python --version", function (error, stdout, stderr) {
     if (error) {
       console.log(error.stack);
       console.log("Error code: " + error.code);
