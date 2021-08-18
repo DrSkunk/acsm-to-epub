@@ -10,7 +10,7 @@ Either through cloning with git or by using npm (the recommended way):
 
 `npm install -g acsm-to-epub`
 
-And nodemon will be installed globally to your system path.
+And `acsmtoepub` will be installed globally to your system path.
 
 # Usage
 
