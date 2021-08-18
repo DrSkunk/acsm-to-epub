@@ -2,6 +2,8 @@
 
 Uses [Knock](https://github.com/BentonEdmondson/knock) to convert ACSM files to epub. Afterwards it's uploaded to a Google Drive folder.
 
+Because Knock only has releases for a x86_64 Linux kernel, this will also only work on those platforms.
+
 This automatically downloads the Knock binary.
 
 # Installation
