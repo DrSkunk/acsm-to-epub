@@ -5,13 +5,12 @@ const exec = util.promisify(require("child_process").exec);
 
 const { https } = require("follow-redirects");
 
-const { configDir } = require("./config");
+const { configDir, knockConfigDir } = require("./config");
 
 const version = "0.1.0-alpha";
 const knockFile = "knock-0.1.0-alpha-x86_64-linux";
 
 const binaryPath = path.join(configDir, knockFile);
-const knockConfigPath = path.join(configDir, "knock/device.xml");
 
 async function init(originalFile) {
   try {
@@ -22,9 +21,10 @@ async function init(originalFile) {
   }
 
   try {
-    await fs.promises.stat(knockConfigPath);
+    await fs.promises.stat(path.join(knockConfigDir, "device.xml"));
   } catch (error) {
     const fullPath = path.join(__dirname, originalFile);
+    console.log(error);
     throw new Error(
       `Run The following command: \n${binaryPath} ${fullPath}\nto setup your Adobe account.`
     );

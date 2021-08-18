@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const os = require("os");
 
+const knockConfigDir = path.join(os.homedir(), ".config/knock");
 const configDir = path.join(os.homedir(), ".config/acsmtoepub");
 const booksDir = path.join(configDir, "epubs");
 const configFile = path.join(configDir, "settings.json");
@@ -47,6 +48,7 @@ function getConfig() {
 
 module.exports = {
   init,
+  knockConfigDir,
   configDir,
   booksDir,
   configFile,
