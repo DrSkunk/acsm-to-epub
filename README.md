@@ -4,6 +4,14 @@ Uses [Knock](https://github.com/BentonEdmondson/knock) to convert ACSM files to 
 
 This automatically downloads the Knock binary.
 
+# Installation
+
+Either through cloning with git or by using npm (the recommended way):
+
+`npm install -g acsm-to-epub`
+
+And nodemon will be installed globally to your system path.
+
 # Usage
 
 `acsmtoepub <path/to/acsm>`
