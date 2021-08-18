@@ -1,6 +1,6 @@
 {
   "name": "acsm-to-epub",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Convert ACSM DRM file to Epub and upload it to Google Drive",
   "main": "index.js",
   "scripts": {
