@@ -1,6 +1,7 @@
 #!/usr/bin/env node
+const version = require("./package.json").version;
+console.log(`Starting acsm-to-epub v${version}`);
 
-console.log("Starting acsm-to-epub...");
 const fs = require("fs");
 const path = require("path");
 
