@@ -10,12 +10,29 @@
   },
   "author": "Sebastiaan Jansen - DrSkunk",
   "license": "GPLv3",
+  "bin": {
+    "acsmtoepub": "index.js"
+  },
+  "homepage": "https://github.com/DrSkunk/acsm-to-epub#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/drskunk/acsm-to-epub.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DrSkunk/acsm-to-epub/issues"
+  },
+  "keywords": [
+    "epub",
+    "ebook",
+    "kobo",
+    "drm",
+    "adobe-digital-editions",
+    "adobe",
+    "acsm"
+  ],
   "dependencies": {
     "follow-redirects": "^1.14.1",
     "googleapis": "^84.0.0",
     "xml2js": "^0.4.23"
-  },
-  "bin": {
-    "acsmtoepub": "index.js"
   }
 }
