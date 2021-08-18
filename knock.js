@@ -11,13 +11,23 @@ const version = "0.1.0-alpha";
 const knockFile = "knock-0.1.0-alpha-x86_64-linux";
 
 const binaryPath = path.join(configDir, knockFile);
+const knockConfigPath = path.join(configDir, "knock/device.xml");
 
-async function init() {
+async function init(originalFile) {
   try {
     await fs.promises.stat(binaryPath);
   } catch (error) {
     console.log("knock is not downloaded yet.");
     await download();
+  }
+
+  try {
+    await fs.promises.stat(knockConfigPath);
+  } catch (error) {
+    const fullPath = path.join(__dirname, originalFile);
+    throw new Error(
+      `Run The following command: \n${binaryPath} ${fullPath}\nto setup your Adobe account.`
+    );
   }
 }
 

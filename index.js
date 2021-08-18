@@ -15,13 +15,14 @@ const config = require("./config");
     await config.init();
     upload.init();
     await upload.testCredentials();
-    await knock.init();
 
-    if (process.argv.length < 3 || !process.argv[2].endsWith(".acsm")) {
+    if (process.argv.length < 3 || path.extname(process.argv[2]) !== ".acsm") {
       throw new Error("Usage: acsmtoepub <file.acsm>");
     }
 
     const originalFile = process.argv[2];
+    await knock.init(originalFile);
+
     const cleanName = await getCleanName(originalFile);
     const acsmPath = path.join(config.booksDir, cleanName);
     await fs.promises.copyFile(originalFile, acsmPath);
