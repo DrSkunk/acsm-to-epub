@@ -1,18 +1,21 @@
 {
-  "name": "server",
+  "name": "acsm-to-epub",
   "version": "1.0.0",
-  "description": "",
+  "description": "Convert ACSM DRM file to Epub and upload it to Google Drive",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "clean": "rm -f ./books/*.epub ./books/*.acsm",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Sebastiaan Jansen - DrSkunk",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "follow-redirects": "^1.14.1"
+    "follow-redirects": "^1.14.1",
+    "googleapis": "^84.0.0",
+    "xml2js": "^0.4.23"
+  },
+  "bin": {
+    "acsmtoepub": "index.js"
   }
 }
