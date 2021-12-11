@@ -25,13 +25,13 @@ const config = require("./config");
     await knock.init(originalFile);
 
     const cleanName = await getCleanName(originalFile);
-    const acsmPath = path.join(config.booksDir, cleanName);
+    const acsmPath = path.join(config.booksDir, `${cleanName}.acsm`);
     await fs.promises.copyFile(originalFile, acsmPath);
 
     console.log("Copied to", acsmPath);
     const epubPath = await knock.convert(acsmPath);
     console.log("Converted to", epubPath);
-    await upload.upload(cleanName, epubPath);
+    await upload.upload(`${cleanName}.epub`, epubPath);
     console.log("uploaded file to Drive");
   } catch (error) {
     console.error(error);
@@ -46,6 +46,6 @@ async function getCleanName(inputFile) {
   const metadata = xml.fulfillmentToken.resourceItemInfo[0].metadata[0];
   const title = metadata["dc:title"][0]._;
   const author = metadata["dc:creator"][0]._;
-  const outputFile = `${title} - ${author}.acsm`;
+  const outputFile = `${title} - ${author}`;
   return outputFile;
 }
