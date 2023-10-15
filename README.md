@@ -1,3 +1,11 @@
+ **⚠️Since the Knock repository is offline, this tool will not work anymore⚠️**
+
+However, you can still find binaries of Knock by **searching** for these exact URLs in the [Wayback machine](https://archive.org/web/):
+
+- https://github.com/BentonEdmondson/knock/releases/download/1.3.1/knock-1.3.1-aarch64-linux
+- https://github.com/BentonEdmondson/knock/releases/download/1.3.1/knock-1.3.1-x86_64-linux
+
+
 # ACSM to Epub converter
 
 Uses [Knock](https://github.com/BentonEdmondson/knock) to convert ACSM files to epub. Afterwards it's uploaded to a Google Drive folder.
